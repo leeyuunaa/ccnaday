@@ -1,6 +1,6 @@
 !@@@LeafSwitchONLY
 config t
-   hostname COREbaba12
+   hostname COREbaba52
    enable secret pass
    service password-encryption
    no logging console
@@ -16,89 +16,59 @@ config t
    Int Gi 0/1
      no shutdown
 	  no switchport
-	  ip add 10.12.12.4 255.255.255.0
+	  ip add 10.52.12.4 255.255.255.0
    Int Vlan 1
      no shutdown
-	 ip add 10.12.1.4 255.255.255.0
+	 ip add 10.52.1.4 255.255.255.0
 	 description MGMTDATA
    Int Vlan 10
      no shutdown
-	 ip add 10.12.10.4 255.255.255.0
+	 ip add 10.52.10.4 255.255.255.0
 	 description WIRELESS
    Int Vlan 50
      no shutdown
-	 ip add 10.12.50.4 255.255.255.0
+	 ip add 10.52.50.4 255.255.255.0
 	 description IPCCTV
    Int Vlan 100
      no shutdown
-	 ip add 10.12.100.4 255.255.255.0
+	 ip add 10.52.100.4 255.255.255.0
 	 description VOICEVLAN
 	 
 !DHCP: DYNAMIC HOST CONFIGURATION PROTOCOL
 !@@@LEAF SWITCH
 config t
-ip dhcp Excluded-add 10.12.1.1 10.12.1.100
-ip dhcp Excluded-add 10.12.10.1 10.12.10.100
-ip dhcp Excluded-add 10.12.50.1 10.12.50.100
-ip dhcp Excluded-add 10.12.100.1 10.12.100.100
+ip dhcp Excluded-add 10.52.1.1 10.52.1.100
+ip dhcp Excluded-add 10.52.10.1 10.52.10.100
+ip dhcp Excluded-add 10.52.50.1 10.52.50.100
+ip dhcp Excluded-add 10.52.100.1 10.52.100.100
 ip dhcp pool MGMTDATA
-   network 10.12.1.0 255.255.255.0
-   default-router 10.12.1.4
+   network 10.52.1.0 255.255.255.0
+   default-router 10.52.1.4
    domain-name MGMTDATA.COM
-   dns-server 10.12.1.10
+   dns-server 10.52.1.10
 ip dhcp pool WIFIDATA
-   network 10.12.10.0 255.255.255.0
-   default-router 10.12.10.4
+   network 10.52.10.0 255.255.255.0
+   default-router 10.52.10.4
    domain-name WIFIDATA.COM
-   dns-server 10.12.1.10
+   dns-server 10.52.1.10
 ip dhcp pool IPCCTV
-   network 10.12.50.0 255.255.255.0
-   default-router 10.12.50.4
+   network 10.52.50.0 255.255.255.0
+   default-router 10.52.50.4
    domain-name IPCCTV.COM
-   dns-server 10.12.1.10
+   dns-server 10.52.1.10
 ip dhcp pool VOICEVLAN
-   network 10.12.100.0 255.255.255.0
-   default-router 10.12.100.4
+   network 10.52.100.0 255.255.255.0
+   default-router 10.52.100.4
    domain-name VOICEVLAN.COM
-   dns-server 10.12.1.10
-   option 150 ip 10.12.100.8   
+   dns-server 10.52.1.10
+   option 150 ip 10.52.100.8   
    END
 
-!!CREATING AND PLACING PORTS INSIDEAVLAN:
-config t
-vlan 10
-   name WIFIVLAN
-vlan 50
-   name IPCCTVLAN
-vlan 100
-   name VOICEVLAN
-Int Fa 0/2
-  switchport mode access
-  switchport access vlan 10  
-Int Fa 0/4
-  switchport mode access
-  switchport access vlan 10
-Int Fa 0/6
-  switchport mode access
-  switchport access vlan 50  
-Int Fa 0/8
-  switchport mode access
-  switchport access vlan 50    
-Int Fa 0/3
-  switchport mode access
-  switchport access vlan 100     
-Int Fa 0/5
-  switchport mode access
-  switchport access vlan 100  
-Int Fa 0/7
-  switchport mode access
-  switchport access vlan 100    
- end
- 
+!!CREATING AND PLACING PORTS INSIDEAVLAN 
 !!cisco unified call manager Express command
 !@@@CUCM-M
 config t
-   hostname CUCM-12
+   hostname CUCM-52
    enable secret pass
    service password-encryption
    no logging console
@@ -113,22 +83,22 @@ config t
       exec-timeout 0 0
    Int Fa 0/0
      no shutdown
-	 ip add 10.12.100.8 255.255.255.0 
+	 ip add 10.52.100.8 255.255.255.0 
 	 end
    
 !!!CUCM ANALOG PHONES CONFIG
 configure terminal
 dial-peer voice 1 pots
-   destination-pattern 1200
+   destination-pattern 5211
    port 0/0/0 
 dial-peer voice 2 pots
-   destination-pattern 1201
+   destination-pattern 5212
    port 0/0/1
 dial-peer voice 3 pots
-   destination-pattern 1202
+   destination-pattern 5213
    port 0/0/2
 dial-peer voice 4 pots
-   destination-pattern 1203
+   destination-pattern 5214
    port 0/0/3
 end
 
@@ -140,33 +110,33 @@ telephony-service
    no auto-reg-ephone
    max-ephones 5
    max-dn 20
-   ip source-address 10.12.100.8 port 2000
+   ip source-address 10.52.100.8 port 2000
    create cnf-files
 ephone-dn 1
-  number 1256
+  number 5201
 ephone-dn 2
-  number 1278
+  number 5202
 ephone-dn 3
-  number 1245
+  number 5203
 ephone-dn 4
-  number 1212
+  number 5204
 ephone-dn 5
-  number 1223
+  number 5205
 ephone-dn 6
-  number 1266
+  number 5206
 ephone-dn 7
-  number 1296
+  number 5207
 ephone-dn 8
-  number 1263	
+  number 5208	
 Ephone 1
-  Mac-address CCD8.C1FB.1045
-  type 8945
-  button 1:2 2:4 3:6 4:8
-  restart
-Ephone 2
-  Mac-address CCD8.C1FB.2325
+  Mac-address CCD8.C1FB.16F3
   type 8945
   button 1:1 2:3 3:5 4:7
+  restart
+Ephone 2
+  Mac-address 2C54.2D0E.F827
+  type 8945
+  button 1:2 2:4 3:6 4:8
   restart  
 end
 
@@ -192,10 +162,10 @@ ipv4 0.0.0.0 0.0.0.0
 exit
 
 configure terminal
-! dial-peer voice 11 Voip
-! destination-pattern 11..
-! session target ipv4:10.11.100.8
-! codec g711ULAW
+ dial-peer voice 11 Voip
+ destination-pattern 11..
+ session target ipv4:10.11.100.8
+ codec g711ULAW
 dial-peer voice 12 Voip
  destination-pattern 12..
  session target ipv4:10.12.100.8
@@ -228,15 +198,27 @@ dial-peer voice 51 Voip
  destination-pattern 51..
  session target ipv4:10.51.100.8
  codec g711ULAW
-dial-peer voice 52 Voip
- destination-pattern 52..
- session target ipv4:10.52.100.8
+!dial-peer voice 52 Voip
+! destination-pattern 52..
+! session target ipv4:10.52.100.8
+! codec g711ULAW
+dial-peer voice 61 Voip
+ destination-pattern 61..
+ session target ipv4:10.61.100.8
+ codec g711ULAW
+dial-peer voice 62 Voip
+ destination-pattern 62..
+ session target ipv4:10.62.100.8
+ codec g711ULAW
+dial-peer voice 72 Voip
+ destination-pattern 72..
+ session target ipv4:10.72.100.8
  codec g711ULAW
 
 @@@@@@
 !@@@EDGE ROUTE CONFIG
 config t
-   hostname EDGE-12
+   hostname EDGE-52
    enable secret pass
    service password-encryption
    no logging console
@@ -251,20 +233,20 @@ config t
       exec-timeout 0 0
    Int Gi 0/0/0
      description INSIDE
-     ip add 10._._.1 255.255.255.0
+     ip add 10.52.52.1 255.255.255.0
 	 no shutdown
    Int Gi 0/0/1
      description OUTSIDE
-	 ip add 200.0.0._ 255.255.255.0
+	 ip add 200.0.0.52 255.255.255.0
 	 no shutdown
    Int Loopback 0
      description VIRTUALIP
-	 ip add _.0.0.1 255.255.255.255
+	 ip add 52.0.0.1 255.255.255.255
  end
 
  
  !!! EDGE route NOT dikit to ClassMate:
- !ip route 10.11.0.0 255.255.0.0 200.0.0.11
+ ip route 10.11.0.0 255.255.0.0 200.0.0.11
  ip route 10.12.0.0 255.255.0.0 200.0.0.12
  ip route 10.21.0.0 255.255.0.0 200.0.0.21
  ip route 10.22.0.0 255.255.0.0 200.0.0.22
@@ -273,21 +255,24 @@ config t
  ip route 10.41.0.0 255.255.0.0 200.0.0.41
  ip route 10.42.0.0 255.255.0.0 200.0.0.42
  ip route 10.51.0.0 255.255.0.0 200.0.0.51
- ip route 10.52.0.0 255.255.0.0 200.0.0.52
+! ip route 10.52.0.0 255.255.0.0 200.0.0.52
+ ip route 10.52.0.0 255.255.0.0 10.52.52.4
+ip route 10.61.0.0 255.255.0.0 200.0.0.61
+ ip route 10.62.0.0 255.255.0.0 200.0.0.62 
  end
  
  
  
  
 
-@@@@@@@@@
+@@@@@@@@@CUCM
 
 config t
 dial-peer voice 69 voip
  service rivanaa out-bound
- destination-pattern 1169
- session target ipv4:10.11.100.8
- incoming called-number 1169
+ destination-pattern 5269
+ session target ipv4:10.52.100.8
+ incoming called-number 5269
  dtmf-relay h245-alphanumeric
  codec g711ulaw
  no vad
@@ -310,13 +295,13 @@ application
   param max-time-vm-retry 2
   param voice-mail 1234
   param max-time-call-retry 700
-  param aa-pilot 1169
+  param aa-pilot 5269
  service rivanqueue flash:app-b-acd-3.0.0.2.tcl
   param queue-len 15
-  param aa-hunt1 1100
-  param aa-hunt2 1177
-  param aa-hunt3 1101
-  param aa-hunt4 1155
+  param aa-hunt1 5200
+  param aa-hunt2 5277
+  param aa-hunt3 5201
+  param aa-hunt4 5255
   param queue-manager-debugs 1
   param number-of-hunt-grps 4
 *************************************************
