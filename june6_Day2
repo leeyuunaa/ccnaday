@@ -1,0 +1,22 @@
+
+
+
+TASK 1: Minimum Skills of Network Engineer
+
+Decimal Skills
+- Routing, Switching
+
+Binary Skills
+- QOS,Multica,XXX
+
+Hexa Skills
+- MalwareAnlysis using Hexa
+
+C:\Users\Administrator>ping 1010101011
+
+Pinging 60.52.235.19 with 32 bytes of data:
+Request timed out.
+
+Ping statistics for 60.52.235.19:
+    Packets: Sent = 1, Received = 0, Lost = 1 (100% loss),
+Control-C
