@@ -1,3 +1,9 @@
+
+Ansible Playbook
+YML + Python
+
+***********
+
 C:\Users\Administrator>cd desktop
 
 C:\Users\Administrator\Desktop>cd Leona
@@ -15,3 +21,549 @@ C:\Users\Administrator\Desktop\Leona>
 
 
 
+****************************************
+
++-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+
+                        LINUXVMIMAGES.COM
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                    User Name: centos
+                    Password:  centos (sudo su -)
++-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+
+                        LINUXVMIMAGES.COM
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                    User Name: centos
+                    Password:  centos (sudo su -)
+Last login: Sat Jun 10 21:39:59 2023
+[centos@centosstream9 ~]$ 
+[centos@centosstream9 ~]$ 
+[centos@centosstream9 ~]$ ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: ens33: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:0c:29:fd:9d:4c brd ff:ff:ff:ff:ff:ff
+    altname enp2s1
+    inet 192.168.108.128/24 brd 192.168.108.255 scope global dynamic noprefixroute ens33
+       valid_lft 1523sec preferred_lft 1523sec
+    inet6 fe80::20c:29ff:fefd:9d4c/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+[centos@centosstream9 ~]$ sudo su
+[root@centosstream9 centos]# ping 10.52.1.4
+PING 10.52.1.4 (10.52.1.4) 56(84) bytes of data.
+64 bytes from 10.52.1.4: icmp_seq=1 ttl=128 time=2.90 ms
+64 bytes from 10.52.1.4: icmp_seq=2 ttl=128 time=5.29 ms
+64 bytes from 10.52.1.4: icmp_seq=3 ttl=128 time=3.65 ms
+64 bytes from 10.52.1.4: icmp_seq=4 ttl=128 time=6.41 ms
+64 bytes from 10.52.1.4: icmp_seq=5 ttl=128 time=3.62 ms
+64 bytes from 10.52.1.4: icmp_seq=6 ttl=128 time=15.5 ms
+64 bytes from 10.52.1.4: icmp_seq=7 ttl=128 time=2.91 ms
+64 bytes from 10.52.1.4: icmp_seq=8 ttl=128 time=2.84 ms
+^C
+--- 10.52.1.4 ping statistics ---
+8 packets transmitted, 8 received, 0% packet loss, time 7012ms
+rtt min/avg/max/mdev = 2.835/5.391/15.514/4.009 ms
+[root@centosstream9 centos]# ping 10.52.100.8
+PING 10.52.100.8 (10.52.100.8) 56(84) bytes of data.
+From 10.52.52.4 icmp_seq=1 Time to live exceeded
+From 10.52.52.4 icmp_seq=2 Time to live exceeded
+From 10.52.52.4 icmp_seq=3 Time to live exceeded
+From 10.52.52.4 icmp_seq=4 Time to live exceeded
+From 10.52.52.4 icmp_seq=5 Time to live exceeded
+From 10.52.52.4 icmp_seq=6 Time to live exceeded
+^C
+  GNU nano 5.6.1                                                   host                                                   Modified  
+--- 10.52.100.8 ping statistics ---
+  GNU nano 5.6.1                                                  hosts                                                             
+# This is the default ansible 'hosts' file.
+#
+# It should live in /etc/ansible/hosts
+#
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+# Ex 1: Ungrouped hosts, specify before any group headers:
+
+## green.example.com
+## blue.example.com
+## 192.168.100.1
+## 192.168.100.10
+
+# Ex 2: A collection of hosts belonging to the 'webservers' group:
+
+## [webservers]
+## alpha.example.org
+## beta.example.org
+## 192.168.1.100
+## 192.168.1.110
+
+# If you have multiple hosts following a pattern, you can specify
+# them like this:
+
+## www[001:006].example.com
+
+# Ex 3: A collection of database servers in the 'dbservers' group:
+
+## [dbservers]
+##
+## db01.intranet.mydomain.net
+## db02.intranet.mydomain.net
+## 10.25.1.56
+## 10.25.1.57
+
+# Here's another example of host ranges, this time there are no
+# leading 0s:
+
+## db-[99:101]-node.example.com
+
+[switch]
+10.52.1.4
+
+[cucm]
+10.52.100.8
+
+[edge]
+10.52.52.1
+
+[wifi]
+10.52.10.3
+6 packets transmitted, 0 received, +6 errors, 100% packet loss, time 5010ms
+
+[root@centosstream9 centos]# ping 10.52.100.8
+PING 10.52.100.8 (10.52.100.8) 56(84) bytes of data.
+From 10.52.52.4 icmp_seq=1 Time to live exceeded
+From 10.52.52.4 icmp_seq=2 Time to live exceeded
+From 10.52.52.4 icmp_seq=3 Time to live exceeded
+^C
+--- 10.52.100.8 ping statistics ---
+3 packets transmitted, 0 received, +3 errors, 100% packet loss, time 2003ms
+
+[root@centosstream9 centos]# ping 10.52.52.1
+PING 10.52.52.1 (10.52.52.1) 56(84) bytes of data.
+64 bytes from 10.52.52.1: icmp_seq=1 ttl=128 time=43.7 ms
+64 bytes from 10.52.52.1: icmp_seq=2 ttl=128 time=2.15 ms
+64 bytes from 10.52.52.1: icmp_seq=3 ttl=128 time=2.38 ms
+64 bytes from 10.52.52.1: icmp_seq=4 ttl=128 time=1.83 ms
+64 bytes from 10.52.52.1: icmp_seq=5 ttl=128 time=1.78 ms
+64 bytes from 10.52.52.1: icmp_seq=6 ttl=128 time=1.96 ms
+^C
+--- 10.52.52.1 ping statistics ---
+6 packets transmitted, 6 received, 0% packet loss, time 5008ms
+rtt min/avg/max/mdev = 1.779/8.965/43.699/15.534 ms
+[root@centosstream9 centos]# ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: ens33: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:0c:29:fd:9d:4c brd ff:ff:ff:ff:ff:ff
+    altname enp2s1
+    inet 192.168.108.128/24 brd 192.168.108.255 scope global dynamic noprefixroute ens33
+       valid_lft 1106sec preferred_lft 1106sec
+    inet6 fe80::20c:29ff:fefd:9d4c/64 scope link noprefixroute 
+\#_1_DYNAMIC HOST CONFIGURATION PROTOCOL
+#SWITCH
+#CHANGE THE UNDERSCORE _ TO YOUR MONITOR NUMBER.
+---
+
+- name: SWITCH
+  hosts: switch        
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: DHCP
+      telnet:
+        user: admin
+        password: pass
+        login_prompt: "Username: "
+        prompts:
+          - '[>|#]'
+        command:
+          - terminal length 0
+          - enable
+          - config t
+          - ip dhcp Excluded-add 10.52.1.1 10.52.1.100
+          - ip dhcp Excluded-add 10.52.10.1 10.52.10.100
+          - ip dhcp Excluded-add 1052.50.1 10.52.50.100
+          - ip dhcp Excluded-add 10.52.100.1 10.52.100.100
+          - ip dhcp pool MGMTDATA
+          - network 10.52.1.0 255.255.255.0
+          - default-router 10.52.1.4
+          - domain-name MGMTDATA.COM
+  GNU nano 5.6.1                                                 dhcp.yml                                                           
+          - dns-server 10.52.1.10
+          - ip dhcp pool WIFIDATA
+          - network 10.52.10.0 255.255.255.0
+          - default-router 10.52.10.4
+          - domain-name WIFIDATA.COM
+          - dns-server 10.52.1.10
+          - ip dhcp pool IPCCTV
+          - network 10.52.50.0 255.255.255.0
+          - default-router 10.52.50.4
+          - domain-name IPCCTV.COM
+          - dns-server 10.52.1.10
+          - ip dhcp pool VOICEVLAN
+          - network 10.52.100.0 255.255.255.0
+          - default-router 10.52.100.4
+          - domain-name VOICEVLAN.COM
+          - dns-server 10.52.1.10
+          - option 150 ip 10.52.100.8
+          - END
+
+
+- name: SWITCH
+  hosts: switch
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: VLAN
+      telnet:
+        user: admin
+        password: pass
+        login_prompt: "Username: "
+        prompts:
+          - '[>|#]'
+        command:
+          - terminal length 0
+          - enable
+          - config t
+          - vlan 10
+          - name WIFIVLAN
+          - vlan 50
+          - name IPCCTVLAN
+          - vlan 100
+          - name VOICEVLAN
+          - Int Fa 0/2
+          - switchport mode access
+          - switchport access vlan 10
+          - Int Fa 0/4
+          - switchport mode access
+          - switchport access vlan 10
+          - Int Fa 0/6
+          - switchport mode access
+          - switchport access vlan 50
+          - Int Fa 0/8
+          - switchport mode access
+          - switchport access vlan 50
+          - Int Fa 0/3
+          - switchport mode access
+          - switchport access vlan 100
+          - Int Fa 0/5
+          - switchport mode access
+          - switchport access vlan 100
+          - Int Fa 0/7
+          - switchport mode access
+          - switchport access vlan 100
+          - end
+       valid_lft forever preferred_lft forever
+[root@centosstream9 centos]# ping 10.52.52.1
+PING 10.52.52.1 (10.52.52.1) 56(84) bytes of data.
+64 bytes from 10.52.52.1: icmp_seq=1 ttl=128 time=1.73 ms
+64 bytes from 10.52.52.1: icmp_seq=2 ttl=128 time=2.12 ms
+64 bytes from 10.52.52.1: icmp_seq=3 ttl=128 time=2.01 ms
+64 bytes from 10.52.52.1: icmp_seq=4 ttl=128 time=1.94 ms
+64 bytes from 10.52.52.1: icmp_seq=5 ttl=128 time=1.85 ms
+64 bytes from 10.52.52.1: icmp_seq=6 ttl=128 time=2.19 ms
+64 bytes from 10.52.52.1: icmp_seq=7 ttl=128 time=1.86 ms
+64 bytes from 10.52.52.1: icmp_seq=8 ttl=128 time=1.98 ms
+^C
+--- 10.52.52.1 ping statistics ---
+8 packets transmitted, 8 received, 0% packet loss, time 7011ms
+rtt min/avg/max/mdev = 1.729/1.959/2.191/0.140 ms
+[root@centosstream9 centos]# 
+\#_1_DYNAMIC HOST CONFIGURATION PROTOCOL
+#SWITCH
+#CHANGE THE UNDERSCORE _ TO YOUR MONITOR NUMBER. 
+---
+
+- name: SWITCH
+  hosts: switch
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: DHCP
+      telnet:
+        user: admin
+        password: pass
+        login_prompt: "Username: "
+        prompts:
+          - '[>|#]'
+        command:
+          - terminal length 0
+          - enable
+          - config t
+          - ip dhcp Excluded-add 10.52.1.1 10.52.1.100
+          - ip dhcp Excluded-add 10.52.10.1 10.52.10.100
+          - ip dhcp Excluded-add 1052.50.1 10.52.50.100
+          - ip dhcp Excluded-add 10.52.100.1 10.52.100.100
+          - ip dhcp pool MGMTDATA
+          - network 10.52.1.0 255.255.255.0
+          - default-router 10.52.1.4
+          - domain-name MGMTDATA.COM
+  GNU nano 5.6.1                                                 dhcp.yml                                                           
+        user: admin
+        password: pass
+        login_prompt: "Username: "
+        prompts:
+          - '[>|#]'
+        command:
+          - terminal length 0
+          - enable
+          - config t
+          - ip dhcp Excluded-add 10.52.1.1 10.52.1.100
+          - ip dhcp Excluded-add 10.52.10.1 10.52.10.100
+          - ip dhcp Excluded-add 10.52.50.1 10.52.50.100
+          - ip dhcp Excluded-add 10.52.100.1 10.52.100.100
+          - ip dhcp pool MGMTDATA
+          - network 10.52.1.0 255.255.255.0
+          - default-router 10.52.1.4
+          - domain-name MGMTDATA.COM
+          - dns-server 10.52.1.10
+          - ip dhcp pool WIFIDATA
+          - network 10.52.10.0 255.255.255.0
+          - default-router 10.52.10.4
+          - domain-name WIFIDATA.COM
+          - dns-server 10.52.1.10
+          - ip dhcp pool IPCCTV
+          - network 10.52.50.0 255.255.255.0
+          - default-router 10.52.50.4
+          - domain-name IPCCTV.COM
+          - dns-server 10.52.1.10
+          - ip dhcp pool VOICEVLAN
+          - network 10.52.100.0 255.255.255.0
+          - default-router 10.52.100.4
+          - domain-name VOICEVLAN.COM
+          - dns-server 10.52.1.10
+          - option 150 ip 10.52.100.8
+          - END
+          
+         
+- name: SWITCH
+  hosts: switch
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: VLAN
+      telnet:
+        user: admin
+        password: pass
+        login_prompt: "Username: "
+        prompts:
+          - '[>|#]'
+        command:
+          - terminal length 0
+          - enable
+          - config t
+          - vlan 10
+          - name WIFIVLAN
+          - vlan 50
+          - name IPCCTVLAN
+          - vlan 100
+          - name VOICEVLAN
+          - Int Fa 0/2
+          - switchport mode access
+          - switchport access vlan 10
+          - Int Fa 0/4
+          - switchport mode access
+          - switchport access vlan 10
+          - Int Fa 0/6
+[root@centosstream9 centos]# 
+[root@centosstream9 centos]# 
+[root@centosstream9 centos]# 
+[root@centosstream9 centos]# 
+[root@centosstream9 centos]# 
+[root@centosstream9 centos]# cd /etc/ansible
+[root@centosstream9 ansible]# ls
+ansible.cfg     autowifi.yml       autowifi.yml.save.1  config.txt  hosts  rivan_ansible  router1.yml
+autowifiv1.yml  autowifi.yml.save  ccna_ansible         dcon.yml    nov    roles
+[root@centosstream9 ansible]# rm -rf rivan_ansible
+[root@centosstream9 ansible]# ls
+ansible.cfg     autowifi.yml       autowifi.yml.save.1  config.txt  hosts  roles
+autowifiv1.yml  autowifi.yml.save  ccna_ansible         dcon.yml    nov    router1.yml
+[root@centosstream9 ansible]# 
+[root@centosstream9 ansible]# 
+[root@centosstream9 ansible]# nano host
+  GNU nano 5.6.1                                                 dhcp.yml                                                           
+#_1_DYNAMIC HOST CONFIGURATION PROTOCOL
+#SWITCH
+#CHANGE THE UNDERSCORE _ TO YOUR MONITOR NUMBER.
+---
+
+- name: SWITCH
+  hosts: switch
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: DHCP
+      telnet:
+        user: admin
+        password: pass
+        login_prompt: "Username: "
+        prompts:
+          - '[>|#]'
+        command:
+          - terminal length 0
+          - enable
+          - config t
+          - ip dhcp Excluded-add 10.52.1.1 10.52.1.100
+          - ip dhcp Excluded-add 10.52.10.1 10.52.10.100
+          - ip dhcp Excluded-add 10.52.50.1 10.52.50.100
+          - ip dhcp Excluded-add 10.52.100.1 10.52.100.100
+          - ip dhcp pool MGMTDATA
+          - network 10.52.1.0 255.255.255.0
+          - default-router 10.52.1.4
+          - domain-name MGMTDATA.COM
+          - dns-server 10.52.1.10
+          - ip dhcp pool WIFIDATA
+          - network 10.52.10.0 255.255.255.0
+          - default-router 10.52.10.4
+          - domain-name WIFIDATA.COM
+          - dns-server 10.52.1.10
+          - ip dhcp pool IPCCTV
+          - network 10.52.50.0 255.255.255.0
+          - default-router 10.52.50.4
+          - domain-name IPCCTV.COM
+          - dns-server 10.52.1.10
+          - ip dhcp pool VOICEVLAN
+          - network 10.52.100.0 255.255.255.0
+          - default-router 10.52.100.4
+          - domain-name VOICEVLAN.COM
+          - dns-server 10.52.1.10
+          - option 150 ip 10.52.100.8
+          - END
+
+
+- name: SWITCH
+  hosts: switch
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: VLAN
+      telnet:
+        user: admin
+        password: pass
+        login_prompt: "Username: "
+        prompts:
+          - '[>|#]'
+        command:
+          - terminal length 0
+          - enable
+          - config t
+          - vlan 10
+[root@centosstream9 ansible]# nano hosts
+[root@centosstream9 ansible]# cd rivan_ansible/
+bash: cd: rivan_ansible/: No such file or directory
+[root@centosstream9 ansible]# ls
+ansible.cfg     autowifi.yml       autowifi.yml.save.1  config.txt  hosts  roles
+autowifiv1.yml  autowifi.yml.save  ccna_ansible         dcon.yml    nov    router1.yml
+[root@centosstream9 ansible]# 
+[root@centosstream9 ansible]# 
+[root@centosstream9 ansible]# 
+[root@centosstream9 ansible]# 
+[root@centosstream9 ansible]# 
+[root@centosstream9 ansible]# 
+[root@centosstream9 ansible]# git clone https://github.com/rivan16/rivan52ansible.git
+Cloning into 'rivan52ansible'...
+Username for 'https://github.com': ^C
+[root@centosstream9 ansible]# git clone https://github.com/rivan16/rivan_ansible.git 
+Cloning into 'rivan_ansible'...
+remote: Enumerating objects: 189, done.
+remote: Counting objects: 100% (105/105), done.
+remote: Compressing objects: 100% (105/105), done.
+remote: Total 189 (delta 59), reused 0 (delta 0), pack-reused 84
+Receiving objects: 100% (189/189), 46.77 KiB | 1.06 MiB/s, done.
+Resolving deltas: 100% (104/104), done.
+[root@centosstream9 ansible]# ls
+ansible.cfg     autowifi.yml       autowifi.yml.save.1  config.txt  hosts  rivan_ansible  router1.yml
+autowifiv1.yml  autowifi.yml.save  ccna_ansible         dcon.yml    nov    roles
+[root@centosstream9 ansible]# cd rivan_ansible
+[root@centosstream9 rivan_ansible]# ls
+analog.yml  call.yml  config.txt  dhcp.yml  edge.yml  phone.yml  run_all.yml  show.yml  video.yml  wifi.yml
+[root@centosstream9 rivan_ansible]# 
+[root@centosstream9 rivan_ansible]# 
+[root@centosstream9 rivan_ansible]# 
+[root@centosstream9 rivan_ansible]# 
+[root@centosstream9 rivan_ansible]# 
+[root@centosstream9 rivan_ansible]# ls
+analog.yml  call.yml  config.txt  dhcp.yml  edge.yml  phone.yml  run_all.yml  show.yml  video.yml  wifi.yml
+[root@centosstream9 rivan_ansible]# nano dhcp.yml
+[root@centosstream9 rivan_ansible]# ansible-playbook dhcp.yml
+ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  but found another document
+
+The error appears to be in '/etc/ansible/rivan_ansible/dhcp.yml': line 4, column 1, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+#CHANGE THE UNDERSCORE _ TO YOUR MONITOR NUMBER.
+---
+^ here
+[root@centosstream9 rivan_ansible]# nano dhcp.yml
+[root@centosstream9 rivan_ansible]# ansible-playbook dhcp.yml
+ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  but found another document
+
+The error appears to be in '/etc/ansible/rivan_ansible/dhcp.yml': line 4, column 1, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+#CHANGE THE UNDERSCORE _ TO YOUR MONITOR NUMBER.
+---
+^ here
+[root@centosstream9 rivan_ansible]# nano dhcp.yml            
+[root@centosstream9 rivan_ansible]# ansible-playbook dhcp.yml
+
+PLAY [SWITCH] **********************************************************************************************************************
+
+TASK [DHCP] ************************************************************************************************************************
+changed: [10.52.1.4]
+
+PLAY [SWITCH] **********************************************************************************************************************
+
+TASK [VLAN] ************************************************************************************************************************
+changed: [10.52.1.4]
+
+PLAY RECAP *************************************************************************************************************************
+10.52.1.4                  : ok=2    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[root@centosstream9 rivan_ansible]# ping 10.52.100.8
+PING 10.52.100.8 (10.52.100.8) 56(84) bytes of data.
+64 bytes from 10.52.100.8: icmp_seq=2 ttl=128 time=1.99 ms
+64 bytes from 10.52.100.8: icmp_seq=3 ttl=128 time=2.18 ms
+64 bytes from 10.52.100.8: icmp_seq=4 ttl=128 time=2.30 ms
+^C
+--- 10.52.100.8 ping statistics ---
+4 packets transmitted, 3 received, 25% packet loss, time 3053ms
+rtt min/avg/max/mdev = 1.986/2.156/2.301/0.129 ms
+[root@centosstream9 rivan_ansible]# stream9 rivan_ansible]# 
+bash: stream9: command not found
+[root@centosstream9 rivan_ansible]# [root@centosstream9 rivan_ansible]# 
+bash: [root@centosstream9: command not found
+[root@centosstream9 rivan_ansible]# [root@centosstream9 rivan_ansible]# 
+bash: [root@centosstream9: command not found
+[root@centosstream9 rivan_ansible]# [root@centosstream9 rivan_ansible]# 
+bash: [root@centosstream9: command not found
+[root@centosstream9 rivan_ansible]# [root@centosstream9 rivan_ansible]# ls
+bash: [root@centosstream9: command not found
+[root@centosstream9 rivan_ansible]# analog.yml  call.yml  config.txt  dhcp.yml  edge.yml  phone.yml  run_all.yml  show.yml  video.yml  wifi.yml
+bash: analog.yml: command not found
+[root@centosstream9 rivan_ansible]# [root@centosstream9 rivan_ansible]# nano dhcp.yml
+bash: [root@centosstream9: command not found
+[root@centosstream9 rivan_ansible]# [root@centosstream9 rivan_ansible]# ansible-playbook dhcp.yml
+bash: [root@centosstream9: command not found
+[root@centosstream9 rivan_ansible]#
