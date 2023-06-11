@@ -1,0 +1,17 @@
+C:\Users\Administrator>cd desktop
+
+C:\Users\Administrator\Desktop>cd Leona
+
+C:\Users\Administrator\Desktop\Leona>git clone https://github.com/rivan16/rivan_ansible
+Cloning into 'rivan_ansible'...
+remote: Enumerating objects: 189, done.
+remote: Counting objects: 100% (105/105), done.
+remote: Compressing objects: 100% (105/105), done.
+remote: Total 189 (delta 59), reused 0 (delta 0), pack-reused 84
+Receiving objects: 100% (189/189), 46.77 KiB | 1.20 MiB/s, done.
+Resolving deltas: 100% (104/104), done.
+
+C:\Users\Administrator\Desktop\Leona>
+
+
+
