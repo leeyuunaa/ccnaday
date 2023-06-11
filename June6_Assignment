@@ -44,7 +44,60 @@ Not: 10.1.0.0 /17
 ____________________________________________________________________________
 
 @D2
+ip dhcp excluded-address 10.2.1.1 10.2.1.199
+ip dhcp excluded-address 10.0.32.1 10.0.32.100
+ip dhcp excluded-address 10.0.128.1 10.0.128.100
+ip dhcp excluded-address 10.0.0.65 10.0.0.90
+ip dhcp excluded-address 10.0.64.1 10.0.64.254
+ip dhcp excluded-address 10.0.0.129 10.0.0.150
+ip dhcp excluded-address 10.0.64.1 10.0.64.255
 
+ip dhcp pool pornhub.com
+ network 10.0.64.0 255.255.192.0
+ domain-name pornhub.com
+ default-router 10.0.64.1 255.255.192.0 
+ dns-server 8.8.8.8 
+!
+ip dhcp pool bahalaka.com
+ network 10.0.128.0 255.255.128.0
+ default-router 10.0.128.1 255.255.128.0 
+ domain-name bahalaka.com
+ dns-server 8.8.8.8 
+!
+ip dhcp pool dnsfarm
+ network 10.0.0.128 255.255.255.128
+ default-router 10.0.0.129 255.255.255.128 
+ dns-server 8.8.8.8 
+ domain-name dnsfarm.com
+!
+ip dhcp pool webservers
+ network 10.0.0.64 255.255.255.192
+ default-router 10.0.0.65 255.255.255.192 
+ domain-name webservers.com
+ dns-server 8.8.8.8 
+
+
+interface Ethernet1/0
+ switchport access vlan 52
+ switchport mode access
+ duplex auto
+!
+interface Vlan52
+ description webservers
+ ip address 10.0.0.65 255.255.255.192
+!
+interface Vlan101
+ description dnsfarm
+ ip address 10.0.0.129 255.255.255.128
+!
+interface Vlan200
+ description bahalaka.com
+ ip address 10.0.128.1 255.255.128.0
+!
+interface Vlan800
+ description pornhub.com
+ ip address 10.0.64.1 255.255.192.0
+!
 
 
 
