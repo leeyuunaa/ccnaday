@@ -100,7 +100,32 @@ interface Vlan800
 !
 
 
+@D1
 
+interface Ethernet1/0
+ switchport access vlan 101
+ switchport mode access
+ duplex auto
+ 
+ 
+ @A1
+ 
+ interface Ethernet0/0
+ switchport access vlan 800
+ switchport mode access
+ duplex auto
+ 
+ 
+ @A2
+ 
+ interface Ethernet1/0
+ switchport access vlan 200
+ switchport mode access
+ duplex auto
+!
+ 
+ 
+ 
 
 
 
