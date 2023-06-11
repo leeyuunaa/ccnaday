@@ -850,32 +850,66 @@ p1:ping 8.8.8.8
 
 TASK5: ROUTING: static,eigrp,ospf,BGP vs
        TUNNELING: VPN:
+	   VPN: encryption, tunneling, hash
+		aes,des,rsa   ipsec,l2tp,pptp  sha1,sha256,md5
+		
+		
+#use encryption for ssh
+@COREbaba
+config t
+no enable secret pass
+username admin privilege 15 password pass
+ip domain-name rivanit.com
+crypto key generate rsa
+
+ip ssh version 2 
+line vty 0 14
+login local
+end
+
+@VPNJP
+config t
+int gi2
+ip add 192.168.102.101 255.255.255.0
+no shut
+
+@VPNPH
+config t
+int gi2
+ip add 192.168.102.102 255.255.255.0
+no shut
+
+
 @VPNJP:
 config T
 no logging console
 no ip domain-lookup
 int gi 1
-ip add dhcp
+ip add 192.168.108.101 255.255.255.0
 no shut
-int gi 2
-ip add dhcp
-no shut
+!int gi 2
+!ip add dhcp
+!no shut
 int gi3
 ip add 10.10.10.1 255.255.255.0
 no shut
+
 @VPNphp:
 config T
 no logging console
 no ip domain-lookup
 int gi 1
-ip add dhcp
+ip add 192.168.108.102 255.255.255.0
 no shut
-int gi 2
-ip add dhcp
-no shut
+!int gi 2
+!ip add dhcp
+!no shut
 int gi3
 ip add 10.20.20.1 255.255.255.0
 no shut
+
+TASK6: SITE TO SITE VPN
+
 
 TASK6: LALABASA SA EXAM NYO SA FEB/MARCH
 HOW TO CONFIGURE SSHv2. or SecureShell
@@ -898,3 +932,141 @@ Howt to configure Site 2 site VPN JP to PH:
 https://
 
 TASK6: FUndamentals of Cisco network Security:
+
+
+VPNJP#sh ip in br 
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet1       192.168.108.101 YES manual up                    up      
+GigabitEthernet2       192.168.102.101 YES manual up                    up      
+GigabitEthernet3       10.10.10.1      YES manual up                    up      
+Tunnel1                172.16.10.1     YES TFTP   up                    up      
+VPNJP#
+
+
+
+VPNPH#sh ip int br
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet1       192.168.108.102 YES manual up                    up      
+GigabitEthernet2       192.168.102.102 YES manual up                    up      
+GigabitEthernet3       10.20.20.1      YES manual up                    up      
+Tunnel1                172.16.10.2     YES TFTP   up                    up      
+VPNPH#
+
+
+TASK 7:
+a:c::/64
+::/0
+fe80::a0:0:f/64
+2002:65000:3000::/64
+::1/128
+ff00::beef:a00a:aa0:0:0/8 XXXX
+
+@VPNJP
+
+conf t
+ipv6 unicast-routing
+
+int gi1
+ipv6 add face:face:cafe:cafe:a/64
+
+int gi2
+ipv6 add a:b:c:d::a/64
+
+int gi3
+ipv6 add a:b:c:e::a/64
+end
+
+
+@VPNPH
+
+conf t
+ipv6 unicast-routing
+
+int gi1
+ipv6 add face:face:cafe:cafe:b/64
+
+int gi2
+ipv6 add d:c:b:a::b/64
+
+int gi3
+ipv6 add e:c:b:a::b/64
+end
+
+!!!!!!!!!!! EXAM: IPV6 OSPF !!!!!!!!!!!!!
+
+@VPNJP
+conf t
+ipv6 router ospf 1
+router-id 1.1.1.1
+int gi 1
+ipv6 ospf 1 area 0
+int gi 2
+ipv6 ospf 1 area 0
+int gi 3
+ipv6 ospf 1 area 0
+
+
+@VPNPH
+conf t
+ipv6 router ospf 1
+router-id 2.2.2.2
+int gi 1
+ipv6 ospf 1 area 0
+int gi 2
+ipv6 ospf 1 area 0
+int gi 3
+ipv6 ospf 1 area 0
+
+VPNJP(config-if)#do sh ipv6 route ospf 
+IPv6 Routing Table - default - 7 entries
+Codes: C - Connected, L - Local, S - Static, U - Per-user Static route
+       B - BGP, R - RIP, H - NHRP, I1 - ISIS L1
+       I2 - ISIS L2, IA - ISIS interarea, IS - ISIS summary, D - EIGRP
+       EX - EIGRP external, ND - ND Default, NDp - ND Prefix, DCE - Destination
+       NDr - Redirect, RL - RPL, O - OSPF Intra, OI - OSPF Inter
+       OE1 - OSPF ext 1, OE2 - OSPF ext 2, ON1 - OSPF NSSA ext 1
+       ON2 - OSPF NSSA ext 2, la - LISP alt, lr - LISP site-registrations
+       ld - LISP dyn-eid, lA - LISP away, le - LISP extranet-policy
+       a - Application
+O   D:C:B:A::/64 [110/1]
+     via GigabitEthernet2, directly connected
+O   E:C:B:A::/64 [110/1]
+     via GigabitEthernet3, directly connected
+	 
+	 
+VPNPH(config-if)#do sh ipv6 route ospf
+IPv6 Routing Table - default - 7 entries
+Codes: C - Connected, L - Local, S - Static, U - Per-user Static route
+       B - BGP, R - RIP, H - NHRP, I1 - ISIS L1
+       I2 - ISIS L2, IA - ISIS interarea, IS - ISIS summary, D - EIGRP
+       EX - EIGRP external, ND - ND Default, NDp - ND Prefix, DCE - Destination
+       NDr - Redirect, RL - RPL, O - OSPF Intra, OI - OSPF Inter
+       OE1 - OSPF ext 1, OE2 - OSPF ext 2, ON1 - OSPF NSSA ext 1
+       ON2 - OSPF NSSA ext 2, la - LISP alt, lr - LISP site-registrations
+       ld - LISP dyn-eid, lA - LISP away, le - LISP extranet-policy
+       a - Application
+O   A:B:C:D::/64 [110/1]
+     via GigabitEthernet2, directly connected
+O   A:B:C:E::/64 [110/1]
+     via GigabitEthernet3, directly connected
+VPNPH(config-if)#
+
+
+TASK10: How IPV6 gives ip address
+method 1:
+@VPNJP
+config t
+int gi1
+ipv6 add face:face:cafe:cafe::a/64
+!static
+ipv6 add autoconfig
+!autoconfig
+ipv6 add face:face:cafe:cafe::/64 eui-64
+!ipv6 eui-64, mac address
+
+
+nmap -sP xxxx/24
+
+
+ASSIGNMENT:
+M: RST:
