@@ -567,3 +567,8 @@ bash: [root@centosstream9: command not found
 [root@centosstream9 rivan_ansible]# [root@centosstream9 rivan_ansible]# ansible-playbook dhcp.yml
 bash: [root@centosstream9: command not found
 [root@centosstream9 rivan_ansible]#
+
+
+
+*********************************************
+
