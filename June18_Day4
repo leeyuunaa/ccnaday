@@ -1,4 +1,3 @@
-
 server 208.67.222.222
 
 
@@ -329,17 +328,143 @@ permit ip any any
 int fa0/0
  ip access-group FW4 in
  do sh ip access-list FW4
+ 
+ @UTM
+ conf t
+ no logging console
+ int gi 1
+ no shut
+ ip add 192.168.108.5 255.255.255.0
+
+ int gi 2
+ no shut
+ ip add 192.168.102.5 255.255.255.0
+
+ int gi 3
+ no shut
+ ip add 192.168.103.5 255.255.255.0
+
+
+@linux2
+give temporary ip address
+ sudo ifconfig eth0 192.168.102.51 netmask 255.255.255.0 up
+ sudo route add default gw 192.168.102.5 
+ ifconfig 
+ ping 192.168.102.5
+ 
+@linux 3, same command as linux 2
+
+lab1: give internet to linux2 linux 3 using
+access list + network address translation
+
+step 1: 
+
+
+netstat -rn
+
+ip roiute
 
 
 
+int gi 1
+ip nat outside
+
+int gi 2
+ip nat inside
+
+int gi 3
+ip nat inside
+
+step 2:
+
+config t
+no access-list 7
+access-list 7 permit 192.168.102.0 0.0.0.255
+access-list 7 permit 192.168.103.0 0.0.0.255
+
+step 3: create static nat mapping 
+Inside:
+192.168.102.51
+192.168.103.51
+
+Outside: 
+192.168.108.152
+192.168.108.153
+
+config t
+ip nat inside source static 192.168.102.51 192.168.108.152
+ip nat inside source static 192.168.103.51 192.168.108.153
+!for everyone else
+ip nat inside source list 7 int gi 1 overload
+
+####sh ip nat translation
+
+examlab2: network time protocol
+synchronize your utm time with google usa
 
 
+examlab3: enable web,dns,finger,https on utm
+conf t
+ip dns server
+ip http server
+ip http secure-server
+service finger
+end
+
+create a fw policy utm1 to allow
+192.168.102.5 open ssh,dns,web
+192.168.103.5 open telnet,secure web, finger
+
+conf t
+no ip access-list extended UTM1
+ip access-list extended UTM1
+permit tcp any  host 192.168.102.5 eq 22
+permit tcp any  host 192.168.102.5 eq 53
+permit tcp any  host 192.168.102.5 eq 80
+
+permit tcp any  host 192.168.103.5 eq 443
+permit tcp any  host 192.168.103.5 eq 79
+permit tcp any  host 192.168.103.5 eq 23
+
+int gi 2
+ no ip access-group UTM1 in
+
+int gi 3
+ no ip access-group UTM1 in
+ 
+ 
+ examlab4: use standard access-list to block the top 3 porn sites in the world
+ pornhub.com grp 66.254.114.41
+ xhamster.com 104.18.156.3
+ bangbros.com 104.20.40.48
+ 
+conf t
+ no ip access-list 8
+ access-list 8 deny 66.254.0.0 0.0.255.255
+ access-list 8 deny 88.208.0.0 0.0.255.255
+ access-list 8 deny 104.20.0.0 0.0.255.255
+ access-list 8 deny 104.18.0.0 0.0.255.255
+ access-list 8 permit any
+ 
+ int gi1
+  ip access-group 8 in
+  end
+  
+ 
+examlab5: multiple hacker, multiple victim
 
 
+examlab: learn threat prevention
 
 
+######porn free dns 208.67.222.123 / 220.123
+###### ipconfig /flushdns
 
 
-
-
-
+!Exam
+5 DNS IP
+ 8.8.8.8
+ 1.1.1.1
+ 4.2.2.2
+ 208.67.222.123
+ 208.67.220.123
