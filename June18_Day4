@@ -1,1 +1,345 @@
 
+server 208.67.222.222
+
+
+
+TASK 7: what to do in case of a major incident
+hack, walang virus
+
+1. disconnect completely
+2. protect yourself
+utm = unified threat management, 
+5in1:
+firewall, vpn, antivirus, ids, ips, netadmin control
+
+top utm:
+1. palo alto: globe, pldt
+2. Cisco asa firewall
+3. fortinet firewall
+
+how to master cisco security:
+
+
+task8: fundamentals of network security
+packet filter firewall
+bantay: layer 3 and 4
+
+cisco access control list:
+standard access-list: 1-99: source ip
+usage: block access to all:
+	russian, chinese, north korea
+
+
+lab 1:
+block the opposite column
+
+EDGE-52(config)#access-li
+EDGE-52(config)#no access-li       
+EDGE-52(config)#no access-list 1
+EDGE-52(config)#access-li
+EDGE-52(config)#access-list 1 deny 10.11.0.0 0.0.255.255
+EDGE-52(config)#access-list 1 deny 10.21.0.0 0.0.255.255
+EDGE-52(config)#access-list 1 deny 10.31.0.0 0.0.255.255
+EDGE-52(config)#access-list 1 deny 10.41.0.0 0.0.255.255
+EDGE-52(config)#access-list 1 deny 10.51.0.0 0.0.255.255
+EDGE-52(config)#access-list 1 deny 10.61.0.0 0.0.255.255
+EDGE-52(config)#access-list 1 permit any                
+EDGE-52(config)#int gi0/0/1
+EDGE-52(config-if)#ip access-gr
+EDGE-52(config-if)#ip access-group 1 in
+
+conf t
+no access-list 
+ip access-list 2
+access-list 2 deny 10.11.0.0 0.0.255.255
+access-list 2 deny 10.12.0.0 0.0.255.255
+access-list 2 deny 10.21.0.0 0.0.255.255
+access-list 2 deny 10.22.0.0 0.0.255.255
+access-list 2 deny 10.31.0.0 0.0.255.255
+access-list 2 deny 10.32.0.0 0.0.255.255
+access-list 2 permit any
+int gi0/0/1
+ip access-group 2 in
+
+
+conf t
+no access-list 
+ip access-list 3
+access-list 3 deny 10.11.0.0 0.0.255.255
+access-list 3 deny 10.12.0.0 0.0.255.255
+access-list 3 deny 10.21.0.0 0.0.255.255
+access-list 3 deny 10.22.0.0 0.0.255.255
+access-list 3 deny 10.31.0.0 0.0.255.255
+access-list 3 deny 10.32.0.0 0.0.255.255
+access-list 3 deny 10.41.0.0 0.0.255.255
+access-list 3 deny 10.42.0.0 0.0.255.255
+access-list 3 permit any
+int gi0/0/1
+ip access-group 3 in
+
+
+conf t
+no access-list 
+ip access-list 4
+access-list 4 permit 10.51.0.0 0.0.255.255
+access-list 4 deny any
+int gi0/0/1
+ip access-group 4 in
+
+
+how to remove access-list
+int gi0/0/1
+no ip access-group 4 in
+
+
+conf t
+no access-list 
+ip access-list 4
+access-list 4 permit 10.51.0.0 0.0.255.255
+access-list 4 deny any
+int gi0/0/1
+ip access-group 4 in
+
+
+protect your router with access-list
+allow your network to telnet
+
+@edge:
+config t
+no access-list 5
+access-list 5 permit 10.52.0.0 0.0.255.255
+line vty 0 4
+access-class 5 in
+
+int gi0/0/1
+do show ip access-list 5
+
+task9: advance packet filter firewall
+experience a day in the life of cybersecurity aholes
+
+sdr hacking****
+
+make cucm intentionally hackable
+
+@cmd
+route add 10.52.0.0 mask 255.255.0.0 10.52.1.4
+
+
+nmap -v cm 		nmap -v cm2
+C:\Users\Administrator>nmap -v cm2
+Starting Nmap 7.92 ( https://nmap.org ) at 2023-06-18 11:51 Malay Peninsula Standard Time
+Initiating Ping Scan at 11:51
+Scanning cm2 (10.52.100.9) [4 ports]
+Completed Ping Scan at 11:51, 0.05s elapsed (1 total hosts)
+Initiating SYN Stealth Scan at 11:51
+Scanning cm2 (10.52.100.9) [1000 ports]
+Discovered open port 443/tcp on 10.52.100.9
+Discovered open port 53/tcp on 10.52.100.9
+Discovered open port 22/tcp on 10.52.100.9
+Discovered open port 23/tcp on 10.52.100.9
+Discovered open port 80/tcp on 10.52.100.9
+Discovered open port 1720/tcp on 10.52.100.9
+Discovered open port 13/tcp on 10.52.100.9
+Discovered open port 5061/tcp on 10.52.100.9
+Discovered open port 6002/tcp on 10.52.100.9
+Discovered open port 19/tcp on 10.52.100.9
+Discovered open port 9/tcp on 10.52.100.9
+Discovered open port 4002/tcp on 10.52.100.9
+Discovered open port 2000/tcp on 10.52.100.9
+Discovered open port 2002/tcp on 10.52.100.9
+Discovered open port 5060/tcp on 10.52.100.9
+Discovered open port 9002/tcp on 10.52.100.9
+Discovered open port 7/tcp on 10.52.100.9
+Discovered open port 79/tcp on 10.52.100.9
+Completed SYN Stealth Scan at 11:51, 4.43s elapsed (1000 total ports)
+Nmap scan report for cm2 (10.52.100.9)
+Host is up (0.0034s latency).
+rDNS record for 10.52.100.9: CM2
+Not shown: 982 closed tcp ports (reset)
+PORT     STATE SERVICE
+7/tcp    open  echo
+9/tcp    open  discard
+13/tcp   open  daytime
+19/tcp   open  chargen
+22/tcp   open  ssh
+23/tcp   open  telnet
+53/tcp   open  domain
+79/tcp   open  finger
+80/tcp   open  http
+443/tcp  open  https
+1720/tcp open  h323q931
+2000/tcp open  cisco-sccp
+2002/tcp open  globe
+4002/tcp open  mlchat-proxy
+5060/tcp open  sip
+5061/tcp open  sip-tls
+6002/tcp open  X11:2
+9002/tcp open  dynamid
+
+Read data files from: C:\Program Files (x86)\Nmap
+Nmap done: 1 IP address (1 host up) scanned in 4.84 seconds
+           Raw packets sent: 1196 (52.600KB) | Rcvd: 1001 (40.100KB)
+
+
+
+C:\Users\Administrator>nmap -v cm
+Starting Nmap 7.92 ( https://nmap.org ) at 2023-06-18 11:51 Malay Peninsula Standard Time
+Initiating Ping Scan at 11:51
+Scanning cm (10.52.100.8) [4 ports]
+Completed Ping Scan at 11:51, 0.04s elapsed (1 total hosts)
+Initiating SYN Stealth Scan at 11:51
+Scanning cm (10.52.100.8) [1000 ports]
+Discovered open port 53/tcp on 10.52.100.8
+Discovered open port 80/tcp on 10.52.100.8
+Discovered open port 443/tcp on 10.52.100.8
+Discovered open port 22/tcp on 10.52.100.8
+Discovered open port 1720/tcp on 10.52.100.8
+Discovered open port 23/tcp on 10.52.100.8
+Discovered open port 7/tcp on 10.52.100.8
+Discovered open port 5060/tcp on 10.52.100.8
+Discovered open port 2002/tcp on 10.52.100.8
+Discovered open port 79/tcp on 10.52.100.8
+Discovered open port 9002/tcp on 10.52.100.8
+Discovered open port 4002/tcp on 10.52.100.8
+Discovered open port 13/tcp on 10.52.100.8
+Discovered open port 9/tcp on 10.52.100.8
+Discovered open port 19/tcp on 10.52.100.8
+Discovered open port 2000/tcp on 10.52.100.8
+Discovered open port 6002/tcp on 10.52.100.8
+Discovered open port 5061/tcp on 10.52.100.8
+Completed SYN Stealth Scan at 11:51, 4.43s elapsed (1000 total ports)
+Nmap scan report for cm (10.52.100.8)
+Host is up (0.0047s latency).
+rDNS record for 10.52.100.8: CM
+Not shown: 982 closed tcp ports (reset)
+PORT     STATE SERVICE
+7/tcp    open  echo
+9/tcp    open  discard
+13/tcp   open  daytime
+19/tcp   open  chargen
+22/tcp   open  ssh
+23/tcp   open  telnet
+53/tcp   open  domain
+79/tcp   open  finger
+80/tcp   open  http
+443/tcp  open  https
+1720/tcp open  h323q931
+2000/tcp open  cisco-sccp
+2002/tcp open  globe
+4002/tcp open  mlchat-proxy
+5060/tcp open  sip
+5061/tcp open  sip-tls
+6002/tcp open  X11:2
+9002/tcp open  dynamid
+
+Read data files from: C:\Program Files (x86)\Nmap
+Nmap done: 1 IP address (1 host up) scanned in 4.83 seconds
+           Raw packets sent: 1180 (51.896KB) | Rcvd: 1001 (40.100KB)
+
+
+task10: create your extended access-list firewall policy
+              protocol hacker victim port
+			  tcp,udp,icmp,IP   
+			  
+create a firewall policy to allow all only cm
+open 80, 443, 2000 on cm >> 6 line policy
+open 22, 53 on cm2
+
+@cucm
+conf t
+no ip access-list extended FW1
+ip access-list extended FW1
+permit tcp any host cm eq 80
+permit tcp any host cm eq 2000
+permit tcp any host cm eq 443
+permit tcp any host cm2 eq 22
+permit tcp any host cm2 eq 53
+permit icmp any host cm
+
+int fa0/0
+ ip access-group FW1 in
+ do sh ip access-list FW1
+
+
+###nmap -Pnv cm --- to view protocol without icmp
+###nmap -Pnv cm2 --- to view protocol without icmp
+
+release the policy:
+int fa0/0
+ no ip access-group FW1 in
+ do sh ip access-list FW1
+
+EX2: create FW2 policy with condition:
+open cm 22,23,ping
+open cm2 2000,80,79
+
+conf t
+no ip access-list extended FW2
+ip access-list extended FW2
+permit tcp any host cm eq 22
+permit tcp any host cm eq 53
+permit icmp any host cm
+
+permit tcp any host cm2 eq 80
+permit tcp any host cm2 eq 2000
+permit tcp any host cm2 eq 79
+
+int fa0/0
+ ip access-group FW2 in
+ do sh ip access-list FW2
+ 
+EX3: create FW3 policy with condition:
+block/deny cm 22,80,443 allow all else
+block/deny cm2 13,19,53 = 7 lines
+
+conf t
+no ip access-list extended FW3
+ip access-list extended FW3
+deny tcp any host cm eq 22
+deny tcp any host cm eq 80
+deny tcp any host cm eq 443
+
+deny tcp any host cm2 eq 13
+deny tcp any host cm2 eq 19
+deny tcp any host cm2 eq 53
+
+permit ip any any
+
+int fa0/0
+ ip access-group FW3 in
+ do sh ip access-list FW3
+
+
+EX4: create FW4 policy with condition:
+cm: block ping, http, dns, ssh
+cm2: block all
+
+conf t
+no ip access-list extended FW4
+ip access-list extended FW4
+deny tcp any host cm eq 53
+deny tcp any host cm eq 80
+deny tcp any host cm eq 22
+deny icmp any host cm
+
+deny ip any host cm2
+
+permit ip any any
+
+int fa0/0
+ ip access-group FW4 in
+ do sh ip access-list FW4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
