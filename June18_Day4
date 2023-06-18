@@ -468,3 +468,34 @@ examlab: learn threat prevention
  4.2.2.2
  208.67.222.123
  208.67.220.123
+
+#########################
+cd desktop
+leona
+
+git clone https://github.com/rivancorp/devop
+
+
+
+############################
+
+clone UTM, thrice
+
+
+https://sandboxdnac.cisco.com/ -- devnetuser / Cisco123!
+
+
+postman
+
+############################
+
+task13: complete cisco wireless controller
+wifi: discovery boracay / resortsworld
+recover-config
+
+
+10.52.10.190        0100.005e.0001.01
+
+cisco aironet 1815 series mobility express
+
+
