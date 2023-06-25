@@ -1,1 +1,62 @@
+CORETAAS - with amber
+BRIDGE ID
+f025.726e.3400
 
+COREBABA - without amber
+BRIDGE ID
+0817.350e.0e80
+
+!make bridge id lower
+spanning-tree vlan 1 priority 16384
+
+
+!make root bridge
+spanning-tree vlan 1 root primary
+
+!make root bridge secondary
+spanning-tree vlan 1 root secondary
+
+
+NON ROOT SWITCH
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Fa0/1               Desg FWD 19        128.1    P2p 
+Fa0/10              Root FWD 19        128.10   P2p 
+Fa0/11              Altn BLK 19        128.11   P2p 
+Fa0/12              Altn BLK 19        128.12   P2p 
+
+ROOT BRIDGE (alpha switch /boss)
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Fa0/10              Desg FWD 19        128.10   P2p 
+Fa0/11              Desg FWD 19        128.11   P2p 
+Fa0/12              Desg FWD 19        128.12   P2p 
+
+Election of Root port
+1 PRIO 128
+2 COST 19 (FA PORT)
+  COST 4  (GI PORT)
+3 PORT NUMBER
+
+
+!after putting cable of port12 to port9 corebaba (root switch)
+CORETAAS
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Fa0/1               Desg FWD 19        128.1    P2p 
+Fa0/10              Altn BLK 19        128.10   P2p 
+Fa0/11              Altn BLK 19        128.11   P2p 
+Fa0/12              Root FWD 19        128.12   P2p 
+
+COREBABA
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Fa0/9               Desg FWD 19        128.9    P2p 
+Fa0/10              Desg FWD 19        128.10   P2p 
+Fa0/11              Desg FWD 19        128.11   P2p 
+
+
+ALT PORT / BLK status >> first LIS (15sec), secon LRN (15sec), last FWD 
+
+
+ 
