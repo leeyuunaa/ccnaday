@@ -175,6 +175,58 @@ tacacs server - for BYOD
 
 ***********************************************************
 
-
+conf t
+ default interface range fa0/1-12
+ 
+ 
+ @both switches
+int range fa0/9-12
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ 
+ @coreswitches
+ conf t
+  int vlan 1
+   no ip add
+   ip add 10.0.0.1 255.0.0.0
+   shut
+   no shut
+   
+ @core switch
+  conf t
+   int fa0/5
+    ip address 100.0.0.2 255.255.255.0
+   
+ @edge
+ int giga0/0/0
+	no shut
+	no ip add
+	ip address 100.0.0.1 255.255.255.0
+	
+ int giga0/0/1
+	no shut
+	no ip add
+	ip address 200.0.0.1 255.255.255.0
+	
+ int loopback 10
+	no shut
+	ip address 8.8.8.8 255.255.255.255
+	end
+ 
+ conf t
+ ip routing
+ router eigrp 625
+	no auto-summary
+	network 100.0.0.0
+	network 200.0.0.0
+	network 8.8.8.8
+	network 10.0.0.0
+   
+ *********************************************************
+ 
+ HSRP?
+ 
+ 
+   
 
  
