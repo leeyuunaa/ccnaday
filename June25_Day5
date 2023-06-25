@@ -60,5 +60,68 @@ ALT PORT / BLK status >> first LIS (15sec), secon LRN (15sec), last FWD
 
 
 
+***********************************
+RSTP
+@both switches
+spanning-tree mode rapid-pvst
+@rootbridge
+spanning-tree backbonefast
+@non root bridge
+spanning-tree uplinkfast
+int fa0/1 spanning-tree portfast
+
+
+
+***********************************
+ETHERCHANNEL / PORT AGGREGATION
+conf t
+int range fa0/10-12
+channel-group 1 mode active
+channel-protocol lacp
+shut
+no shut
+
+!!!!!you can only put portfast in end devices
+
+@coretaas
+show spanning-tree vlan 1
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Fa0/1               Desg FWD 19        128.1    P2p Edge 
+Po1                 Root FWD 9         128.64   P2p 
+
+@corebaba
+show spanning-tree vlan 1
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Po1                 Desg FWD 9         128.64   P2p 
+
+show etherchannel summary
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+1      Po1(SU)         LACP      Fa0/10(P)   Fa0/11(P)   Fa0/12(P)   
+
+show interface port-channel 1
+Port-channel1 is up, line protocol is up (connected) 
+  Hardware is EtherChannel, address is f025.726e.340a (bia f025.726e.340a)
+  MTU 1500 bytes, BW 300000 Kbit/sec, DLY 100 usec, 
+     reliability 255/255, txload 1/255, rxload 1/255
+
+lacp modes
+ active to active
+ active to passive
+ passive to active
+ passive to passive - not working
+
+pagp mode
+ auto
+ desirable
+ auto to auto - not working
+ desirable to auto 
+ auto to desirable
+ desi to desi - not working 
+
+
+
 
  
