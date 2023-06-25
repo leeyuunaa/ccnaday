@@ -61,7 +61,7 @@ ALT PORT / BLK status >> first LIS (15sec), secon LRN (15sec), last FWD
 
 
 ***********************************
-RSTP
+RSTP (802.1w)
 @both switches
 spanning-tree mode rapid-pvst
 @rootbridge
@@ -120,6 +120,57 @@ pagp mode
  desirable to auto 
  auto to desirable
  desi to desi - not working 
+
+**********************************************************
+
+DTP = Dynamic Trunking Protocol (802.1Q) - it allows multiple vlans to travel in a single link
+@both switches
+int port-channel 1
+ switchport trunk encapsulation dot1q 
+ !if L3 switch ONLY
+ switchport mode trunk
+
+show interface trunk
+Port        Mode             Encapsulation  Status        Native vlan
+Po1         on               802.1q         trunking      1
+
+Port        Vlans allowed on trunk
+Po1         1-4094
+
+Port        Vlans allowed and active in management domain
+Po1         1,10
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Po1         1,10
+
+************************************************************
+
+MST - Mutiple Spanning Tree (802.1S)
+spanning-tree mode Mst
+spanning-tree mst configuratiopn
+ name supermanstp
+ revision 1
+   instance 1 vlan 11-19
+   instance 2 vlan 21-29
+   instance 3 vlan 31-39
+
+***********************************************************
+
+port security
+
+@coretaas
+conf t
+int fa0/2
+ switchport mode access
+ switchport port-security 
+ switchport port-security mac-address sticky 
+ switchport port-security maximum 1
+ switchport port-security violation shutdown
+end
+show port-security address
+
+
+
 
 
 
